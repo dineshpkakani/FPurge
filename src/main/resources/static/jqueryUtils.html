@@ -1,0 +1,220 @@
+<!-- 
+
+
+<link rel="stylesheet" href="/mobiledoc/jsp/webemr/css/main.css"/>
+
+<link rel="stylesheet" href="/mobiledoc/jsp/webemr/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="/mobiledoc/jsp/webemr/css/bootstrap-dialog.css"/>
+<script src="/mobiledoc/jsp/webemr/js/bootstrap-dialog.js"></script>
+<script src="/mobiledoc/jsp/webemr/js/vendor/bootstrap.min.js"></script>
+<script src="/mobiledoc/jsp/webemr/js/ui-bootstrap-tpls-0.12.0.min.js"></script>
+<script src="/mobiledoc/jsp/webemr/webpm/js/bootbox.min.js"></script>
+
+
+
+<link rel="stylesheet" href="/mobiledoc/jsp/webemr/css/jquery.mCustomScrollbar.css"/>
+<script src='/mobiledoc/jsp/webemr/js/vendor/jquery-1.11.0.min.js'></script>
+<script src="/mobiledoc/jsp/webemr/js/jquery-ui.js"></script>
+
+
+
+<link rel="stylesheet" href="/mobiledoc/jsp/webemr/css/emr-jtn-registration.css">
+
+<script src='/mobiledoc/jsp/webemr/js/angularjs/angular.min.js'></script>
+<script src="/mobiledoc/jsp/webemr/js/angularjs/angular-route.min.js"></script>
+
+
+<script src="/mobiledoc/jsp/webemr/js/ocLazyLoad.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
+
+<script src="js/configurePathCtrl.js"></script>
+
+<style>
+    .icon-visionexam{
+        background: rgba(0, 0, 0, 0) url("images/sprite_grey_bg.png") repeat scroll -678px -235px;
+        border: medium none;
+        display: inline-block;
+        height: 20px;
+        margin-right: 10px;
+        margin-top: -21px;
+        vertical-align: middle;
+        width: 20px;
+        cursor: pointer;
+    }
+    #lookupLoader{background:#000 url("images/ajax-loader.gif") no-repeat center center;height: 31px;width: 31px;position: fixed;z-index: 10000;left: 50%;top: 50%;margin: -25px 0 0 -25px;border-radius:16px;}
+    .show {
+        display : block;
+    }
+    .hide {
+        display : none;
+    }
+    .celloverhide{
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+</style>
+<div ng-app="duplicateFileFinder" ng-controller="duplicateFileFinderCtrl as fileFinderCtrl" style="height: 100%;">
+    <!-- Delete modal started -->
+    <div class="modal fade orangetheme billing-width nohgt in" id="deleteFileModal" aria-hidden="false" style="display: hide;">
+        <div class="modal-dialog w420">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button id="provider-roasterBtn32" type="button" class="close" aria-hidden="true" ng-click="closeDeletePopup();">x</button>
+                    <h4 class="modal-title">Delete files</h4>
+                </div>
+                <div class="clearfix"></div>
+                <div class="modal-body nobackgrnd modalh343 whitebg">
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-sm-12 mt10">
+                                <span class="fnt12">Select Files to Delete </span>
+                            </div>
+                            <div>
+                                <div class="col-sm-12" style="overflow-y:scroll;height: 188px;">
+                                <table class="table table-bordered blue-fade-table nomargin fixed-table" style="table-layout: fixed;">
+                                    <tr>
+                                        <th style="max-width: 35px;width:35px;">-</th>
+                                        <th>File Names</th>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td>D:\checkouts\SP3\mobiledoc\src\main\webapp\jsp\catalog\xml\edi\js\ambulancetrans.js</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td>D:\checkouts\SP3\mobiledoc\src\main\webapp\jsp\catalog\xml\edi1\js\ambulancetrans.js</td>
+                                    </tr>
+                                </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="modal-footer grey-bg bd-mid-top white-bg">
+                    <button id="provider-roasterBtn34" class="btn btn-lgrey btn-xs pull-right ml5 cancel_btn" ng-click="closeGeneratePacket();" type="button" autocomplete="off">Cancel</button>
+                    <button id="provider-roasterBtn35" type="button" class="btn btn-blue btn-xs pull-right " ng-click="downloadPacket();" ng-disabled="downloadingPacket">Delete files</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Delete modal ended -->
+
+    <div id="lookupLoader" class="hide"></div>
+    <div class="modal-header bluetheme">
+        <h4 class="modal-title" id="myModalLabel">File Purging</h4>
+        <span class="icon-visionexam pull-right" ng-click="fileFinderCtrl.openSettings()"> </span>
+    </div>
+    <div class="col-sm-12 grey-bg">
+        <div class="col-sm-12">
+            <div class="col-sm-12 brdrbottom nopadding">
+                <div class="col-sm-12 nopadding mb10 det-view mt10">
+                    <div class="form-group col-sm-12">
+                        <div class="col-sm-1 control-label mt3">
+                            <label>Begins with</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control input-sm clearable mb10" name="txtbeginswith" ng-model="fileFinderCtrl.ngbegingswith" />
+                        </div>
+                        <div class="col-sm-1 control-label mt3">
+                            <label>In between</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control input-sm clearable mb10" name="txtinbetween" ng-model="fileFinderCtrl.ngtxtinbetween" />
+                        </div>
+
+                        <div class="col-sm-1 control-label mt3">
+                            <label>Ends with</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control input-sm clearable mb10" name="txtendswith" ng-model="fileFinderCtrl.ngtxtendswith" />
+                        </div>
+
+                        <div class="col-sm-1 control-label mt3">
+                            <button id="collectionListViewBtn4" class="btn btn-lblue btn-sm" data-ng-click="fileFinderCtrl.filterData(0)"><i class="icon icon-wfilter"></i> Lookup</button>
+                        </div>
+                        <div class="col-sm-1">
+
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <div class="col-sm-1 control-label mt3">
+                            <label>Grouping Type</label>
+                        </div>
+                        <div class="col-sm-2 ">
+                            <select class="form-control input-sm mb10" ng-model="fileFinderCtrl.ngslctgrouptype">
+                                <optgroup label="Grouping Type">
+                                    <option value="2">No Grouping</option>
+                                    <option value="0">File Name</option>
+                                    <option value="1">File Name With Size</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="col-sm-1 control-label mt3">
+                            <label>File Type</label>
+                        </div>
+                        <div class="col-sm-2 ">
+                            <select class="form-control input-sm mb10" ng-model="fileFinderCtrl.ngslctfiletype">
+                                <optgroup label="File Group">
+                                    <option value=".js">Java Script</option>
+                                    <option value=".css">Style sheet</option>
+                                    <option value=".html">HTML Page</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="col-sm-3 control-label mt3"></div>
+                        <div class="col-sm-1 control-label mt3">
+                            <button id="DenialManagementBtn6" class="btn btn-lblue btn-sm"  ng-click="fileFinderCtrl.filterData(1)" >Export To Excel</button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12" style="overflow-y:scroll;height: 388px;">
+                <table id="billingGlobalDetailsTbl2" class="table table-bordered blue-fade-table nomargin fixed-table" style="table-layout: fixed;">
+                    <thead>
+                        <tr>
+                            <th class="col-sm-3">File name&nbsp;</th>
+                            <th class="col-sm-4">Path</th>
+                            <th class="col-sm-1">Size</th>
+                            <th class="col-sm-1">No.Of Files</th>
+                            <th class="col-sm-1">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="fields in fileFinderCtrl.jQuerydata track by $index">
+                            <td ng-bind="fields.fileName"></td>
+                            <td class="celloverhide"  ng-bind="fields.filePath"></td>
+                            <td class="celloverhide"   ng-bind="fields.fileSize"></td>
+                            <td ng-bind="fields.count"></td>
+                            <td><i class="icon icon-edit"></i> <i class="icon icon-trash ml5" ng-click="fileFinderCtrl.deleteShowPopup();"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
+        <form name="frmexcel" id="frmexcel" action="/mobiledoc/dental/FilePurging/D:\checkouts\SP3\mobiledoc\src\main\webapp\jsp\webemr\webpm" method="post">
+
+            <input type="hidden" name="beginsWith" id="beginsWith" ng-model="fileFinderCtrl.nbegin">
+            <input type="hidden" name="inBetween" id="inBetween" ng-model="fileFinderCtrl.ninbetween">
+            <input type="hidden" name="endsWith" id="endsWith" ng-model="fileFinderCtrl.nendswith">
+            <input type="hidden" name="groupingType" id="groupingType" ng-model="fileFinderCtrl.ngrouping">
+            <input type="hidden" name="exportToExcel" id="exportToExcel" ng-model="fileFinderCtrl.nexport">
+        </form>
+    </div>
+
+</div>

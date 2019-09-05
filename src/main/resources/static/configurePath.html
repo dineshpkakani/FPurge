@@ -1,0 +1,128 @@
+<style>
+	#lookupLoader{background:#000 url("/mobiledoc/jsp/webemr/img/ajax-loader.gif") no-repeat center center;height: 31px;width: 31px;position: fixed;z-index: 10000;left: 50%;top: 50%;margin: -25px 0 0 -25px;border-radius:16px;}
+	.show {
+		display : block;
+	}
+	.hide {
+		display : none;
+	}
+
+</style>
+<div class="modal-header">
+	<button id="messageCodesBtn1" type="button" class="close"
+		aria-hidden="true" data-ng-click="cnfgCtrl.closeModal();">&times;</button>
+	<h4 class="modal-title" id="myModalLabel">Configuration for	File Purging</h4>
+</div>
+<div class="modal-body grey-bg">
+
+	<div class="tabs-wrap greybg left relative mt15">
+		<ul class="nav">
+			<li ng-class="cnfgCtrl.tab === 1?'active':''"><a href="#" data-toggle="tab" data-target="#ReqFields" title="Request Fields">Jquery </a></li>
+			<li ng-class="cnfgCtrl.tab === 4?'active':''"><a href="#" data-toggle="tab" data-target="#ReqCriteria"  title="Request Criteria">CSS</a></li>
+		</ul>
+		<div class="clearfix"></div>
+		<div class="tab-content">
+			<div class="tab-pane" ng-class="cnfgCtrl.tab === 1?'active':''" id="ReqFields">
+				<div class="fileter-wrap  grey-bg txtnormal mt20" style="height:400px;">
+
+					<div class="clearfix"></div>
+					<div class="bill_codetabup">
+
+					</div>
+					<div style="max-height: 350px; overflow-y: auto;">
+						<div class="col-sm-12 form-group mb10 ">
+							<div class="col-sm-8 form-group" >
+								<font color="red"><label class="" ng-bind="nglastupdated">  </label></font>
+							</div>
+							<div class="col-sm-2 nopadding">
+
+							</div>
+
+							<div class="clearfix"></div>
+						</div>
+						<div class="col-sm-12 form-group mb10 ">
+							<div class="col-sm-4 form-group" >
+								<label class="">Please enter mobiledoc path </label>
+							</div>
+							<div class="col-sm-8 nopadding">
+								<input id="txtjsbrowse" type="text" value="D:\checkouts\SP3\mobiledoc" class="form-control input-sm ng-pristine ng-untouched ng-valid ng-not-empty"    ng-model="cnfgCtrl.jqueryURL" />
+
+							</div>
+
+							<div class="clearfix"></div>
+						</div>
+						<div class="col-sm-12 form-group mb10 ">
+							<div class="col-sm-4 form-group" >
+								<label class="">Please select file type</label>
+							</div>
+							<div class="col-sm-2 nopadding">
+								<select class="form-control input-sm mb10" ng-model="cnfgCtrl.jqueryfiletype">
+									<optgroup label="File Group">
+										<option value="">-</option>
+										<option value="js">Java Script</option>
+										<option value="css">Style sheet</option>
+										<option value="html">HTML Page</option>
+									</optgroup>
+								</select>
+							</div>
+
+							<div class="clearfix"></div>
+						</div>
+						<div class="col-sm-12 form-group mb10 ">
+							<div class="col-sm-4 form-group" >
+								<button id="" class="btn btn-blue btn-xs pull-right ml5 mr5" type="button" data-ng-click="cnfgCtrl.jqueryConfigure();">Save</button>
+							</div>
+							<div class="col-sm-2 nopadding">
+
+							</div>
+
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="clearfix"></div>
+			</div>
+			<div class="tab-pane" ng-class="cnfgCtrl.tab === 4?'active':''" id="ReqCriteria">
+				<div class="fileter-wrap  grey-bg txtnormal mt20" style="height:400px;">
+
+					<div class="clearfix"></div>
+					<div class="bill_codetabup">
+
+					</div>
+					<div style="max-height: 350px; overflow-y: auto;">
+						<div class="col-sm-12 form-group mb10 ">
+							<div class="col-sm-8 form-group" >
+								<label class="control-label mt3 ">Please select mobiledoc path </label>
+							</div>
+							<div class="col-sm-2 nopadding">
+
+
+
+								<div class="input-group-btn">
+
+								</div>
+							</div>
+
+							<div class="clearfix"></div>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="clearfix"></div>
+
+			</div>
+
+		</div>
+	</div>
+
+
+
+</div>
+<div class="clearfix"></div>
+<div class="modal-footer bd-mid-top grey-bg nomargin">
+	<button id="messageCodesBtn3" type="button" class="btn btn-lgrey btn-sm btn-xs pull-right"	data-ng-click="cnfgCtrl.closeModal();">Close</button>
+	<!--<button id="messageCodesBtn4" class="btn btn-blue btn-xs pull-right ml5 mr5" type="button" ng-disabled="!cnfgCtrl.isRoperBillingConfiguration" data-ng-click="cnfgCtrl.saveAll();">Save</button>-->
+
+</div>
